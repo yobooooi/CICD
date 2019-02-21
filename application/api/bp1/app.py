@@ -47,11 +47,11 @@ class Server(Resource):
                     'id': users[id].id,
                     'name': users[id].name,
                     'surname': users[id].lastname
-                    }
+                    }, 200
         except KeyError:
             return {
                     'error' : 'user cannot be found'
-                    }
+                    }, 400
 
     def post(self, id):
         """
@@ -67,11 +67,11 @@ class Server(Resource):
 
             return {
                     'success' : 'user added id:{0}, {1} {2} '.format(user.id, user.name, user.lastname)
-                    }
+                    }, 200
         except KeyError:
             return {
                     'error' : 'user cannot be created'
-                    }
+                    }, 400
 
     def put(self, id):
         """
@@ -90,12 +90,12 @@ class Server(Resource):
 
                 return {
                         'success' : 'user updated id:{0}, {1} {2} '.format(user.id, user.name, user.lastname)
-                        }
+                        }, 200
             except KeyError:
                 return {
                         'error' : 'missing parameters in data'
-                        }
+                        }, 400
         except KeyError:
             return {
                     'error' : 'user cannot be found'
-                    }
+                    }, 400
