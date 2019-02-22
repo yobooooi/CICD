@@ -5,7 +5,7 @@ from flask import Flask
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 
-from api.bp1.app import blueprint as user_manager_api
+from api.usermanager.app import blueprint as user_manager_api
 
 app = Flask(__name__)
 
