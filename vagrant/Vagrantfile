@@ -1,0 +1,28 @@
+Vagrant.configure("2") do |config|
+	config.vm.box = "minimal/xenial64"
+  config.vm.synced_folder "data", "/data1"
+  config.vm.network :public_network
+
+  config.vm.provider :virtualbox do |vb|
+  	vb.customize [
+    		"modifyvm", :id,
+    		"--cpuexecutioncap", "50",
+    		"--memory", "256",
+  	]
+  end
+
+	config.vm.provision :shell do |shell|
+	  shell.inline = "sudo apt-get update;
+										printf 'y' | sudo apt-get install puppet"
+	end
+
+	config.vm.provision :puppet do |puppet|
+		puppet.facter = {
+      "server_type" => "jenkins"
+    }
+	  puppet.manifests_path = "puppet/manifests"
+		puppet.module_path = "puppet/modules"
+	  puppet.manifest_file = "site.pp"
+	end
+
+end
