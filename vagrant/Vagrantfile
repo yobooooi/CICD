@@ -1,28 +1,46 @@
 Vagrant.configure("2") do |config|
-	config.vm.box = "minimal/xenial64"
-  config.vm.synced_folder "data", "/data1"
-  config.vm.network :public_network
 
-  config.vm.provider :virtualbox do |vb|
-  	vb.customize [
-    		"modifyvm", :id,
-    		"--cpuexecutioncap", "50",
-    		"--memory", "256",
-  	]
-  end
+	config.vm.define "webserver" do |webserver|
 
-	config.vm.provision :shell do |shell|
-	  shell.inline = "sudo apt-get update;
-										printf 'y' | sudo apt-get install puppet"
+		webserver.vm.box = "minimal/xenial64"
+		webserver.vm.synced_folder "../application", "/data/app"
+
+		webserver.vm.network "private_network", ip: "192.168.50.4"
+    webserver.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)"
+		webserver.vm.provider :virtualbox do |vb|
+	  	vb.customize [
+	    		"modifyvm", :id,
+	    		"--cpuexecutioncap", "50",
+	    		"--memory", "256",
+	  	]
+	  end
 	end
 
-	config.vm.provision :puppet do |puppet|
-		puppet.facter = {
-      "server_type" => "jenkins"
-    }
-	  puppet.manifests_path = "puppet/manifests"
-		puppet.module_path = "puppet/modules"
-	  puppet.manifest_file = "site.pp"
-	end
+	config.vm.define "jenkins" do |jenkins|
 
+		jenkins.vm.box = "minimal/xenial64"
+
+    jenkins.vm.network "private_network", ip: "192.168.50.3"
+    jenkins.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)"
+		jenkins.vm.provider :virtualbox do |vb|
+			vb.customize [
+	  			"modifyvm", :id,
+	  			"--cpuexecutioncap", "50",
+	  			"--memory", "256",
+			]
+		end
+
+		jenkins.vm.provision :shell do |shell|
+	  	shell.inline = "sudo apt-get update; printf 'y' | sudo apt-get install puppet"
+		end
+
+		jenkins.vm.provision :puppet do |puppet|
+			puppet.facter = {
+	    	"server_type" => "jenkins"
+	  	}
+	  	puppet.manifests_path = "puppet/manifests"
+			puppet.module_path = "puppet/modules"
+	  	puppet.manifest_file = "site.pp"
+		end
+	end
 end
