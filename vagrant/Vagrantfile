@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
 		webserver.vm.synced_folder "../application", "/data/app"
 
 		webserver.vm.network "private_network", ip: "192.168.50.4"
-    webserver.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)"
+    webserver.vm.network "public_network"
 		webserver.vm.provider :virtualbox do |vb|
 	  	vb.customize [
 	    		"modifyvm", :id,
@@ -14,6 +14,22 @@ Vagrant.configure("2") do |config|
 	    		"--memory", "256",
 	  	]
 	  end
+
+		webserver.vm.provision :shell do |shell|
+	  	shell.inline = "export LC_ALL=C;
+											sudo apt-get update;
+											sudo apt-get install puppet -y"
+		end
+
+		webserver.vm.provision :puppet do |puppet|
+			puppet.facter = {
+	    	"server_type" => "webserver"
+	  	}
+	  	puppet.manifests_path = "puppet/manifests"
+			puppet.module_path = "puppet/modules"
+	  	puppet.manifest_file = "site.pp"
+		end
+
 	end
 
 	config.vm.define "jenkins" do |jenkins|
@@ -42,5 +58,35 @@ Vagrant.configure("2") do |config|
 			puppet.module_path = "puppet/modules"
 	  	puppet.manifest_file = "site.pp"
 		end
+	end
+
+	config.vm.define "mysqldb" do |db|
+		db.vm.box = "minimal/xenial64"
+
+		db.vm.network "private_network", ip: "192.168.50.7"
+    db.vm.network "public_network"
+		db.vm.provider :virtualbox do |vb|
+	  	vb.customize [
+	    		"modifyvm", :id,
+	    		"--cpuexecutioncap", "50",
+	    		"--memory", "256",
+	  	]
+	  end
+
+		db.vm.provision :shell do |shell|
+	  	shell.inline = "export LC_ALL=C;
+											sudo apt-get update;
+											sudo apt-get install puppet -y"
+		end
+
+		db.vm.provision :puppet do |puppet|
+			puppet.facter = {
+	    	"server_type" => "mysql"
+	  	}
+	  	puppet.manifests_path = "puppet/manifests"
+			puppet.module_path = "puppet/modules"
+	  	puppet.manifest_file = "site.pp"
+		end
+
 	end
 end
