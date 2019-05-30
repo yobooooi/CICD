@@ -8,7 +8,10 @@
   tasks:
     -
       name: install required common packages
-      apt: name = {{ item }} state=build-dep
+      apt:
+        name: {{ item }}
+        state: build-dep
+        install_recommends: yes
       with_items:
         - python3-pip
       become: true
