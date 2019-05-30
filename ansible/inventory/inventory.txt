@@ -1,2 +1,2 @@
-arget_1 ansible_host=192.168.50.5 ansible_ssh_pass=password_1 ansible_python_interpreter=/usr/bin/python3
-target_2 ansible_host=192.168.50.6 ansible_ssh_pass=password_1 ansible_python_interpreter=/usr/bin/python3
+webserver   ansible_host=192.168.50.8   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
+mysqldb     ansible_host=192.168.50.7   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
