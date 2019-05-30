@@ -11,6 +11,10 @@
       apt: name = {{ item }} state=present
       with_items:
         - mysql-server
+
+      pip: name = {{ item }}
+      with_items:
+        - PyMySQL
       when: "'db_servers' in group_names"
       become: true
       become_method: sudo
