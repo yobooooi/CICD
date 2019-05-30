@@ -7,6 +7,12 @@
 
   tasks:
     -
+      name: install pip on target servers
+      easy_install:
+        name: pip
+        state: latest
+        
+    -
       name: install mysql server
       apt: name = {{ item }} state=present
       with_items:
