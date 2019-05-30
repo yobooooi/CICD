@@ -8,3 +8,4 @@
       with_items:
         - mysql-server
       when: "'db_servers' in group_names"
+      become_user: root
