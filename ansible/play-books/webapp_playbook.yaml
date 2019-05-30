@@ -7,8 +7,12 @@
 
   tasks:
     -
-      name: install pip on target servers
-      command: sudo apt install python3-pip
+      name: install required common packages
+      apt: name = {{ item }} state=present
+      with_items:
+        - python3-pip
+      become: true
+      become_method: sudo
 
     -
       name: install mysql server
