@@ -17,9 +17,8 @@
 
     -
       name: install PyMySQL using pip. Ansible mysql_db modules require this library
-      pip: name = {{ item }}
-      with_items:
-        - PyMySQL
+      pip:
+        name = PyMySQL
       when: "'db_servers' in group_names"
       become: true
       become_method: sudo
