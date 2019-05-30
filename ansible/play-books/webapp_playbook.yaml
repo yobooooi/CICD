@@ -1,11 +1,35 @@
 -
   name: webapp webserver and database setup
   hosts: all
+  vars:
+    login_user: root
+    login_password: password_1
+
   tasks:
     -
       name: install mysql server
-      apt: name = {{ item }} state=installed
+      apt: name = {{ item }} state=present
       with_items:
         - mysql-server
       when: "'db_servers' in group_names"
-      become_user: root
+      become: true
+      become_method: sudo
+
+    -
+      name: start mysql service
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+      when: "'db_servers' in group_names"
+      become: true
+      become_method: sudo
+
+    -
+      name: creat USERMANAGER database
+      mysql_db:
+        name: usermanager
+        state: present
+      when: "'db_servers' in group_names"
+      become: true
+      become_method: sudo
