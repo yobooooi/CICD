@@ -8,10 +8,8 @@
   tasks:
     -
       name: install pip on target servers
-      easy_install:
-        name: pip
-        state: latest
-        
+      command: sudo apt install python3-pip
+
     -
       name: install mysql server
       apt: name = {{ item }} state=present
