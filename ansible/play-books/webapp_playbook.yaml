@@ -9,11 +9,9 @@
     -
       name: install required common packages
       apt:
-        name: {{ item }}
+        name: python3-pip
         state: build-dep
         install_recommends: yes
-      with_items:
-        - python3-pip
       become: true
       become_method: sudo
 
