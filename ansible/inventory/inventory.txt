@@ -1,2 +1,8 @@
-webserver   ansible_host=192.168.50.8   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
-mysqldb     ansible_host=192.168.50.7   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
+web_1   ansible_host=192.168.50.8   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
+db_1    ansible_host=192.168.50.7   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3
+
+[web_servers]
+web_1
+
+[db_servers]
+db_1

@@ -1,0 +1,10 @@
+-
+  name: webapp webserver and database setup
+  hosts: all
+  tasks:
+    -
+      name: install mysql server
+      apt: name = {{ item }} state=installed
+      with_items:
+        - mysql-server
+      when: "'db_servers' in group_names"
