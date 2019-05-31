@@ -54,6 +54,12 @@
       become_method: sudo
 
     -
+      name: Wait for port 3306 to become open on the host, don't start checking for 20 seconds
+      wait_for:
+        port: 3306
+        delay: 20
+
+    -
       name: create USERMANAGER database
       mysql_db:
         name: usermanager
