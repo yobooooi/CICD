@@ -41,6 +41,8 @@
         option: bind-address
         value: "{{ sql_bind_address }}"
       when: "'db_servers' in group_names"
+      become: true
+      become_method: sudo
 
     -
       name: start mysql service
@@ -59,8 +61,6 @@
         port: 3306
         delay: 20
       when: "'db_servers' in group_names"
-      become: true
-      become_method: sudo
 
     -
       name: create USERMANAGER database
