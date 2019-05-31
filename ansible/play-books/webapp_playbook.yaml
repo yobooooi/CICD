@@ -65,6 +65,7 @@
       mysql_db:
         name: usermanager
         state: present
+        login_host: "{{ sql_bind_address }}"
         login_user: "{{ login_user }}"
         login_password: "{{ login_password }}"
       when: "'db_servers' in group_names"
