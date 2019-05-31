@@ -10,7 +10,7 @@
       name: install required common packages
       apt:
         name: python3-pip
-        state: preset
+        state: present
         install_recommends: yes
       become: true
       become_method: sudo
@@ -47,6 +47,17 @@
       mysql_db:
         name: usermanager
         state: present
-        login_user: {{ login_user }}
-        login_password: {{ login_password }}
+        login_user: "{{ login_user }}"
+        login_password: "{{ login_password }}"
+      when: "'db_servers' in group_names"
+
+    -
+      name: create database user with passwssword and all database privileges to the usermanager database
+      mysql_user:
+        name: usermanager_db_user
+        password: password_1
+        priv: 'usermanager.*:ALL,GRANT'
+        state: present
+        login_user: "{{ login_user }}"
+        login_password: "{{ login_password }}"
       when: "'db_servers' in group_names"
