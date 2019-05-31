@@ -17,7 +17,7 @@
 
     -
       name: install mysql server
-      apt: name = {{ item }} state=present
+      apt: name = {{ item }} state=present install_recommends=yes
       with_items:
         - mysql-server
       when: "'db_servers' in group_names"
@@ -47,4 +47,6 @@
       mysql_db:
         name: usermanager
         state: present
+        login_user: {{ login_user }}
+        login_password: {{ login_password }}
       when: "'db_servers' in group_names"
