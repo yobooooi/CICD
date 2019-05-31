@@ -4,6 +4,7 @@
   vars:
     login_user: root
     login_password: password_1
+    sql_bind_address: 192.168.50.7
 
   tasks:
     -
@@ -33,10 +34,18 @@
       become_method: sudo
 
     -
+      name: bind mysql to remote address
+      ini_file:
+        dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+        section: mysqld
+        option: bind-address
+        value: {{ sql_bind_address }}
+
+    -
       name: start mysql service
       service:
         name: mysql
-        state: started
+        state: restarted
         enabled: yes
       when: "'db_servers' in group_names"
       become: true
