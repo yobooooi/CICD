@@ -4,7 +4,7 @@
   vars:
     login_user: root
     login_password: password_1
-    sql_bind_address: 192.168.50.7
+    sql_bind_address: 0.0.0.0
 
   tasks:
     -
@@ -65,7 +65,6 @@
       mysql_db:
         name: usermanager
         state: present
-        login_host: "{{ sql_bind_address }}"
         login_user: "{{ login_user }}"
         login_password: "{{ login_password }}"
       when: "'db_servers' in group_names"
