@@ -39,7 +39,7 @@
         dest: /etc/mysql/mysql.conf.d/mysqld.cnf
         section: mysqld
         option: bind-address
-        value: {{ sql_bind_address }}
+        value: "{{ sql_bind_address }}"
 
     -
       name: start mysql service
