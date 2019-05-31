@@ -40,8 +40,6 @@
         section: mysqld
         option: bind-address
         value: "{{ sql_bind_address }}"
-      become: true
-      become_method: sudo
       when: "'db_servers' in group_names"
 
     -
