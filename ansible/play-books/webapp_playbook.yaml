@@ -57,6 +57,7 @@
     -
       name: Wait for port 3306 to become open on the host, don't start checking for 20 seconds
       wait_for:
+        host: "{{ sql_bind_address }}"
         port: 3306
         delay: 20
       when: "'db_servers' in group_names"
