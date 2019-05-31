@@ -59,6 +59,8 @@
         port: 3306
         delay: 20
       when: "'db_servers' in group_names"
+      become: true
+      become_method: sudo
 
     -
       name: create USERMANAGER database
