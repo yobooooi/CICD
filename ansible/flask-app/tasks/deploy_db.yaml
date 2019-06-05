@@ -47,7 +47,7 @@
 -
   name:             create USERMANAGER database
   mysql_db:
-    name:           ""{{ db_table }}""
+    name:           "{{ db_table }}"
     state:          present
     login_user:     "{{ login_user }}"
     login_password: "{{ login_password }}"
