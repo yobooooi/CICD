@@ -12,4 +12,4 @@
       become:               true
       become_method:        sudo
     -
-      include:              tasks/deploy_dev.yaml
+      include:              tasks/deploy_db.yaml
