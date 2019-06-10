@@ -1,0 +1,21 @@
+node {
+    stage('Checkout') {
+        echo "Stage: Checkout"
+        checkout poll: false,
+        scm: [$class: 'GitSCM',
+            branches: [[name: '*/master']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'CleanBeforeCheckout']],
+            submoduleCfg: [],
+            userRemoteConfigs: [[credentialsId: '57416049-1f30-4294-b321-ce12652abc40', url: 'http://pdcvsvn02.metmom.mmih.biz:7990/scm/om/telechannel-remuneration-model-aggregate.git']]]
+    }
+    stage('Build') {
+       echo "Stage: Build"
+    }
+     stage('Test') {
+       echo "Stage: Test"
+    }
+    stage('Deploy') {
+        echo "Stage: Deploy"
+    }
+}
