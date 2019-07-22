@@ -15,13 +15,13 @@ Vagrant.configure("2") do |config|
 	  end
 	end
 
-	config.vm.define "target" do |target|
+	config.vm.define "target_1" do |target_1|
 
-		target.vm.box = "minimal/xenial64"
-		target.vm.network "private_network", ip: "192.168.50.5"
-	  target.vm.network "public_network"
+		target_1.vm.box = "minimal/xenial64"
+		target_1.vm.network "private_network", ip: "192.168.50.5"
+	  target_1.vm.network "public_network"
 
-		target.vm.provider :virtualbox do |vb|
+		target_1.vm.provider :virtualbox do |vb|
 	  	vb.customize [
 	    		"modifyvm", :id,
 	    		"--cpuexecutioncap", "50",
@@ -43,6 +43,20 @@ Vagrant.configure("2") do |config|
 	    		"--memory", "256",
 	  	]
 	  end
-	end
 
+	end
+	config.vm.define "target_3" do |target_3|
+
+		target_3.vm.box = "minimal/xenial64"
+		target_3.vm.network "private_network", ip: "192.168.50.7"
+		target_3.vm.network "public_network"
+
+		target_3.vm.provider :virtualbox do |vb|
+			vb.customize [
+					"modifyvm", :id,
+					"--cpuexecutioncap", "50",
+					"--memory", "256",
+			]
+		end
+	end
 end

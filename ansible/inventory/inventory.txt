@@ -1,8 +1,0 @@
-web_1   ansible_host=192.168.50.5   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3   ansible_sudo_pass='password_1'
-db_1    ansible_host=192.168.50.6   ansible_ssh_pass=password_1   ansible_python_interpreter=/usr/bin/python3   ansible_sudo_pass='password_1'
-
-[web_servers]
-web_1
-
-[db_servers]
-db_1

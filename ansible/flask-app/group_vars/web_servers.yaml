@@ -1,3 +1,0 @@
-ansible_ssh_pass:           password_1
-ansible_python_interpreter: /usr/bin/python3
-ansible_sudo_pass:          'password_1'
